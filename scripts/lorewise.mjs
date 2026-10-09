@@ -3,7 +3,7 @@
 /**
  * Lorewise Core CLI & Hook Processor
  * Provides deterministic ledger calculations, file profiling, report stamping,
- * and workspace hooks with zero runtime dependencies.
+ * playbook health inspection, and workspace hooks with zero runtime dependencies.
  */
 
 import fs from 'node:fs';
@@ -12,6 +12,7 @@ import { profileCsv } from './lib/csv.mjs';
 import { buildLedger } from './lib/ledger.mjs';
 import { stampReport } from './lib/stamp.mjs';
 import { findUnverifiedMetrics } from './lib/verify.mjs';
+import { auditPlaybookHealth, checkProtectionState } from './lib/health.mjs';
 
 function readStdin() {
   return new Promise((resolve) => {
@@ -29,7 +30,7 @@ async function main() {
   const command = args[0];
 
   if (!command) {
-    console.error('Usage: lorewise.mjs <profile|ledger|stamp|hook>');
+    console.error('Usage: lorewise.mjs <profile|ledger|stamp|check|hook>');
     process.exit(1);
   }
 
@@ -86,22 +87,83 @@ async function main() {
       process.exit(0);
     }
 
+    if (command === 'check') {
+      const targetDir = args[1] ? path.resolve(args[1]) : path.resolve('lorewise', 'playbook');
+      const repoRoot = path.resolve(import.meta.dirname, '..');
+
+      const protection = checkProtectionState(repoRoot);
+      const health = auditPlaybookHealth(targetDir);
+
+      console.log('--- Lorewise System Health Audit ---');
+      console.log(`Protection State: ${protection.description}`);
+      console.log(`Runtime Mode: Node.js core active (p95 fast path)`);
+      console.log(`Playbook Notes Audited: ${health.totalFiles}`);
+
+      if (health.defectCount === 0) {
+        console.log('Knowledge Health: PASS (Zero defects detected)');
+      } else {
+        console.log(`Knowledge Health: DEFECTS DETECTED (${health.defectCount} issue(s))`);
+        if (health.defects.expired.length > 0) {
+          console.log(`\n[Expired Facts / Notes (${health.defects.expired.length})]:`);
+          for (const item of health.defects.expired) {
+            console.log(`  - ${item.id} (${item.file}): expired on ${item.expires}`);
+          }
+        }
+        if (health.defects.unsourced.length > 0) {
+          console.log(`\n[Unsourced Notes (${health.defects.unsourced.length})]:`);
+          for (const item of health.defects.unsourced) {
+            console.log(`  - ${item.id} (${item.file}): missing required source attribution`);
+          }
+        }
+        if (health.defects.contradictory.length > 0) {
+          console.log(`\n[Contradictory / Contested Items (${health.defects.contradictory.length})]:`);
+          for (const item of health.defects.contradictory) {
+            console.log(`  - ${item.id} (${item.file}): ${item.reason}`);
+          }
+        }
+      }
+
+      process.exit(0);
+    }
+
     if (command === 'hook') {
       const subHook = args[1];
 
       if (subHook === 'brief') {
         // SessionStart hook: read desk.md in current workspace if it exists
-        const deskPath = path.resolve('lorewise', 'desk.md');
+        const customDesk = args[2] ? path.resolve(args[2]) : null;
+        const deskPath = customDesk || path.resolve('lorewise', 'desk.md');
+
         if (!fs.existsSync(deskPath)) {
           // Silent if no workspace exists
           process.exit(0);
         }
 
         const deskContent = fs.readFileSync(deskPath, 'utf8');
-        const lines = deskContent.split(/\r?\n/).filter(l => l.startsWith('|') && !l.includes('---') && !l.includes('Client'));
-        const clientCount = lines.length;
+        const rows = deskContent.split(/\r?\n/).filter(l => {
+          if (!l.startsWith('|')) return false;
+          if (l.includes('---')) return false;
+          const cols = l.split('|').map(c => c.trim()).filter(Boolean);
+          if (cols.length === 0) return false;
+          if (cols[0].toLowerCase() === 'client' && cols[1]?.toLowerCase() === 'slug') return false;
+          return true;
+        });
+        const clientCount = rows.length;
 
-        const brief = `Lorewise Desk: ${clientCount} active client(s). Type /lorewise:week to view portfolio or run review.\n`;
+        let dueBetsCount = 0;
+        let inboxFilesCount = 0;
+
+        for (const row of rows) {
+          const cols = row.split('|').map(c => c.trim()).filter(Boolean);
+          if (cols.length >= 7) {
+            const bets = parseInt(cols[5], 10) || 0;
+            const inbox = parseInt(cols[6], 10) || 0;
+            dueBetsCount += bets;
+            inboxFilesCount += inbox;
+          }
+        }
+
+        const brief = `Lorewise Desk: ${clientCount} active client(s), ${dueBetsCount} due bet(s), ${inboxFilesCount} inbox file(s). Spend guard active. Type /lorewise:week to review.\n`;
         process.stdout.write(brief.slice(0, 600));
         process.exit(0);
       }
