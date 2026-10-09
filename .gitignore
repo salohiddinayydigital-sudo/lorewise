@@ -1,0 +1,25 @@
+# Node & dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment and secrets
+.env
+.env.*
+*.local
+*.local.txt
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Evals and test run artifacts
+evals/results/
+tests/fixtures/tmp/
+.temp/
+*.log
+
+# Coverage reports
+coverage/

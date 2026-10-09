@@ -1,0 +1,33 @@
+{
+  "name": "lorewise",
+  "version": "0.1.0",
+  "description": "The media buyer's second brain: remembers every client, grades its own advice against next week's numbers, and shows the row behind every figure.",
+  "type": "module",
+  "main": "scripts/lorewise.mjs",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate": "claude plugin validate --strict ."
+  },
+  "keywords": [
+    "marketing",
+    "advertising",
+    "media-buying",
+    "meta-ads",
+    "google-ads",
+    "ga4",
+    "memory",
+    "evals",
+    "claude-code",
+    "agent-skills"
+  ],
+  "author": "salohiddinayydigital-sudo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salohiddinayydigital-sudo/lorewise.git"
+  },
+  "homepage": "https://github.com/salohiddinayydigital-sudo/lorewise#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

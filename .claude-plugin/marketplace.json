@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/schemas/claude-code-marketplace.json",
+  "name": "lorewise",
+  "description": "Lorewise: the media buyer's second brain marketplace.",
+  "owner": {
+    "name": "Salohiddin",
+    "url": "https://github.com/salohiddinayydigital-sudo"
+  },
+  "plugins": [
+    {
+      "name": "lorewise",
+      "source": "./",
+      "description": "The media buyer's second brain: remembers every client, grades its own advice against next week's numbers, and shows the row behind every figure."
+    }
+  ]
+}

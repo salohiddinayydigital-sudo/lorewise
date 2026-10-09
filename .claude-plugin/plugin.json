@@ -1,0 +1,39 @@
+{
+  "name": "lorewise",
+  "displayName": "Lorewise",
+  "version": "0.1.0",
+  "description": "The media buyer's second brain: remembers every client, grades its own advice against next week's numbers, and shows the row behind every figure.",
+  "author": {
+    "name": "Salohiddin",
+    "url": "https://github.com/salohiddinayydigital-sudo"
+  },
+  "homepage": "https://github.com/salohiddinayydigital-sudo/lorewise",
+  "repository": "https://github.com/salohiddinayydigital-sudo/lorewise",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "advertising",
+    "media-buying",
+    "meta-ads",
+    "google-ads",
+    "ga4",
+    "memory",
+    "evals"
+  ],
+  "userConfig": {
+    "hook_mode": {
+      "type": "string",
+      "title": "Hooks",
+      "description": "Hook enforcement mode: on (brief, guard, verify), guard-only (read-only guard only), or off",
+      "options": ["on", "guard-only", "off"],
+      "default": "on"
+    },
+    "spend_guard": {
+      "type": "string",
+      "title": "Spend guard",
+      "description": "Block mutating advertising MCP tool calls with a change packet recommendation",
+      "options": ["block", "off"],
+      "default": "block"
+    }
+  }
+}
