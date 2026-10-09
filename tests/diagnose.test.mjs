@@ -73,9 +73,9 @@ function calculateCoverage(checks) {
 }
 
 describe('Diagnose & Creative — Platform Knowledge Base Lint', () => {
-  const platformFiles = ['meta.md', 'google-ads.md', 'ga4.md', 'blended.md', 'tracking.md'];
+  const platformFiles = ['meta.md', 'google-ads.md', 'ga4.md', 'blended.md', 'tracking.md', 'targeting.md'];
 
-  it('contains all 5 platform reference files', () => {
+  it('contains all 6 platform reference files', () => {
     for (const file of platformFiles) {
       const fullPath = path.join(DIAGNOSE_DIR, file);
       assert.ok(fs.existsSync(fullPath), `Platform reference ${file} must exist`);
@@ -253,4 +253,43 @@ describe('Diagnose & Creative — Creative Card & Brief Specifications', () => {
       assert.ok(stat.size > 0, `Demo image ${img} must not be empty`);
     }
   });
+
+  it('validates video-card.md specifies retention metrics, timeline storyboards, and fatigue root causes', () => {
+    const videoCardPath = path.join(CREATIVE_DIR, 'video-card.md');
+    assert.ok(fs.existsSync(videoCardPath));
+    const content = fs.readFileSync(videoCardPath, 'utf8');
+
+    assert.ok(content.includes('hook_rate_percent'));
+    assert.ok(content.includes('hold_rate_percent'));
+    assert.ok(content.includes('hook_fatigue'));
+    assert.ok(content.includes('body_fatigue'));
+    assert.ok(content.includes('Timeline Storyboard Breakdown'));
+    assert.ok(content.includes('VCR-demo-shop-vid-01'));
+  });
+
+  it('validates brief-format.md includes 5-scene video storyboard creator template', () => {
+    const briefPath = path.join(CREATIVE_DIR, 'brief-format.md');
+    const content = fs.readFileSync(briefPath, 'utf8');
+
+    assert.ok(content.includes('Video Storyboard Specification'));
+    assert.ok(content.includes('1. Hook'));
+    assert.ok(content.includes('2. Problem'));
+    assert.ok(content.includes('3. Demo'));
+    assert.ok(content.includes('4. Proof'));
+    assert.ok(content.includes('5. CTA'));
+  });
+
+  it('validates targeting.md defines verified facts on auction overlap and audience controls', () => {
+    const targetingPath = path.join(DIAGNOSE_DIR, 'targeting.md');
+    assert.ok(fs.existsSync(targetingPath));
+    const content = fs.readFileSync(targetingPath, 'utf8');
+
+    assert.ok(content.includes('TGT-FACT-01'));
+    assert.ok(content.includes('Auction Overlap'));
+    assert.ok(content.includes('TGT-FACT-02'));
+    assert.ok(content.includes('Advantage+'));
+    assert.ok(content.includes('TGT-FACT-05'));
+    assert.ok(content.includes('Custom audience exclusions'));
+  });
 });
+

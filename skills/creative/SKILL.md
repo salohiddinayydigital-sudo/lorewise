@@ -29,14 +29,16 @@ It evaluates visual and textual assets, tracks creative fatigue, and formulates 
 
 1. **Creative Audit & Card Generation:**
    Inspects visual ad assets in `lorewise/clients/<slug>/creative/` and parses performance metrics into structured [creative-card.md](creative-card.md) format.
-2. **Fatigue Detection:**
+2. **Video Retention & Hook Analysis:**
+   Evaluates 3-second hook rate, 15-second ThruPlay hold rate, and completion metrics into structured [video-card.md](video-card.md) format, isolating hook fatigue from body fatigue.
+3. **Multi-Signal Fatigue Detection:**
    Identifies fatigued ads using multi-dimensional signals:
    - High rolling frequency ($> 3.5 - 4.5$ on broad audiences)
    - Decaying 7-day Click-Through Rate (CTR decay $> 20\%$)
    - Rising Cost Per Acquisition (CPA spike $> 25\%$ above baseline)
-3. **Structured Creative Briefing:**
-   Produces actionable, hypothesis-driven creative briefs using [brief-format.md](brief-format.md), directly linking new visual angles to open bets and playbook lessons.
-4. **Visual Inspection Delegation:**
+4. **Structured Creative & Storyboard Briefing:**
+   Produces actionable, hypothesis-driven creative briefs using [brief-format.md](brief-format.md), including 5-scene timeline storyboards directly linking new visual angles to open bets and playbook lessons.
+5. **Visual Inspection Delegation:**
    Delegates image inspection and visual attribute extraction to the `creative-eye` subagent ([agents/creative-eye.md](../../agents/creative-eye.md)).
 
 ---

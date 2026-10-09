@@ -94,3 +94,27 @@ Every creative brief produced by Lorewise must be falsifiable, linked to an open
 - **Format:** PNG with sRGB color profile.
 - **Compliance:** Zero medical cure claims; authentic customer phrasing only.
 ```
+
+---
+
+## 3. Video Storyboard Brief Template
+
+For video assets, append the structured 5-scene timeline specification:
+
+```markdown
+### Video Storyboard Specification
+
+**Target Duration:** 25–35 seconds
+**Aspect Ratio:** 9:16 (1080x1920 px)
+**Audio:** Authentic spoken dialogue with subtle background instrumental
+**Captions:** Dynamic high-contrast captions rendered on bottom-center
+
+| Scene | Duration | Visual Direction | Spoken Audio / Voiceover | Text Overlay |
+|---|---|---|---|---|
+| **1. Hook** | 00:00–00:03 | Fast-paced pattern interrupt or problem reveal | Opening hook line (must ignite curiosity or call out symptom) | Bold 3–5 word text hook |
+| **2. Problem** | 00:03–00:08 | Relatable struggle, failed alternatives | "I tried every expensive brand and nothing worked..." | "Why usual products fail" |
+| **3. Demo** | 00:08–00:16 | Product in hands, texture, application | Explains single core mechanism of action | Mechanism keyword callout |
+| **4. Proof** | 00:16–00:23 | Real customer before/after or dermatologist quote | Third-party authority and verified results | "4.8/5 Stars (1,200+ Reviews)" |
+| **5. CTA** | 00:23–00:30 | Product packaging with bundle discount badge | Direct invitation: "Tap below to get yours with free shipping" | "Shop Now — 20% Off Today" |
+```
+

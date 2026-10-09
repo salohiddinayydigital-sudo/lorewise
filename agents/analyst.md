@@ -19,11 +19,12 @@ Your role is to perform deterministic performance audits on client accounts with
    - Read `lorewise/clients/<slug>/data/<date>/ledger.json` (or inspect raw CSV rows) to obtain confirmed facts `[rX]`.
    - Read `lorewise/playbook/lessons/` for applicable historical patterns.
 
-2. **Evaluate the 20 Diagnostic Checks:**
-   - Reference `skills/diagnose/method.md`.
+2. **Evaluate the 20 Diagnostic Checks & Domain References:**
+   - Reference `skills/diagnose/method.md` and domain platform facts in `skills/diagnose/targeting.md`.
+   - Audit targeting hygiene: auction overlap between active ad sets, purchaser exclusions on prospecting budgets, and Advantage+ audience controls.
    - For every check (CHK-01 through CHK-20), classify the state strictly as one of:
      * `pass`: Condition meets benchmark or safety limit.
-     * `fail`: Condition breaches threshold (e.g. frequency fatigue, attribution gap, pacing breach).
+     * `fail`: Condition breaches threshold (e.g. frequency fatigue, attribution gap, pacing breach, auction overlap).
      * `unknown`: Required data or export files were omitted (`needs_input`).
      * `not_applicable`: Scope is outside client's current setup.
 

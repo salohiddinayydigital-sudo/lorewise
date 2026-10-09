@@ -45,6 +45,7 @@ Instead of vague letter grades or arbitrary "account health scores", `diagnose` 
    - [ga4.md](ga4.md)
    - [blended.md](blended.md)
    - [tracking.md](tracking.md)
+   - [targeting.md](targeting.md)
 
 ---
 
