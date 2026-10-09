@@ -63,9 +63,10 @@ export function generateDashboard(workspaceDir = process.cwd(), repoRoot = path.
   if (fs.existsSync(clientsDir)) {
     const slugs = fs.readdirSync(clientsDir).filter(f => !f.startsWith('.'));
     for (const slug of slugs) {
-      const bPath = path.join(clientsDir, slug, 'bets.csv');
-      if (fs.existsSync(bPath)) {
-        const lines = fs.readFileSync(bPath, 'utf8').split(/\r?\n/).filter(Boolean);
+      // Read bets.csv (legacy format)
+      const bCsvPath = path.join(clientsDir, slug, 'bets.csv');
+      if (fs.existsSync(bCsvPath)) {
+        const lines = fs.readFileSync(bCsvPath, 'utf8').split(/\r?\n/).filter(Boolean);
         if (lines.length > 1) {
           for (const l of lines.slice(1)) {
             const parts = l.split(',').map(p => p.trim());
@@ -83,6 +84,34 @@ export function generateDashboard(workspaceDir = process.cwd(), repoRoot = path.
               });
             }
           }
+        }
+      }
+      // Read bets.md (canonical markdown format)
+      const bMdPath = path.join(clientsDir, slug, 'bets.md');
+      if (fs.existsSync(bMdPath)) {
+        const mdContent = fs.readFileSync(bMdPath, 'utf8');
+        const betBlocks = mdContent.split(/^## (B-\d+)/m).slice(1);
+        for (let i = 0; i < betBlocks.length; i += 2) {
+          const betId = betBlocks[i];
+          const body = betBlocks[i + 1] || '';
+          const statusMatch = body.match(/^## B-\d+ · (\w+)|· (\w+)/m);
+          const headerMatch = (betId + body).match(/· (\w+)/);
+          const status = headerMatch ? headerMatch[1] : 'open';
+          const dateMatch = body.match(/made:\s*(\S+)/);
+          const channelMatch = body.match(/subject:.*?(Meta|Google|Telegram)/i);
+          // Map markdown statuses to dashboard statuses
+          const statusMap = { held: 'won', missed: 'lost', open: 'open', inconclusive: 'open', void: 'lost' };
+          bets.push({
+            id: betId,
+            slug,
+            date: dateMatch ? dateMatch[1] : '',
+            channel: channelMatch ? channelMatch[1] : '',
+            hypothesis: '',
+            metric: '',
+            target: '',
+            actual: '',
+            status: statusMap[status.toLowerCase()] || status
+          });
         }
       }
     }

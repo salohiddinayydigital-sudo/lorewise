@@ -92,3 +92,31 @@ Practitioner analysis across direct-to-consumer skincare brands indicates consum
 ### Strategic Implications
 When briefing video creators, mandate hook testing focused on opening lines before investing in body copy revisions.
 ```
+
+## 4. Claim Verification Taxonomy
+
+When documenting knowledge, classify the reliability of the claim:
+
+- **FACT**: Verified against official platform documentation with a direct URL and date checked. Highest reliability.
+- **EXPERIENCE**: Based on firsthand account data across multiple Lorewise campaigns. High reliability but context-dependent.
+- **OPINION**: Practitioner recommendation or hypothesis without statistical proof. Useful but must be explicitly labeled to avoid confusion.
+- **AD**: Marketing claim from a vendor, agency, or tool. Lowest reliability, never cite as core evidence.
+
+## 5. Source Quality Score (1-5)
+
+Rank sources according to this hierarchy to maintain data integrity:
+
+- **5**: Official platform documentation (Meta Business Help, Google Ads Help).
+- **4**: Peer-reviewed study or official platform engineering blog.
+- **3**: Experienced practitioner with a verifiable track record and cross-account data.
+- **2**: Industry blog or conference talk (often generalized or outdated).
+- **1**: Social media post or anonymous forum comment.
+
+## 6. Conflict Resolution Protocol
+
+When two authoritative sources or notes disagree on a platform mechanic:
+
+- When two sources disagree, immediately tag the note as `contested`.
+- Preserve both positions within the note, explicitly noting their respective Source Quality Scores.
+- Resolve the conflict by testing in our own accounts. Once verified, graduate the claim to **EXPERIENCE**.
+- Never silently pick one side without documenting the discrepancy.

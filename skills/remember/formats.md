@@ -149,14 +149,14 @@ Format: `YYYY-MM-DD | decision or outcome | rationale or source`
 
 ## 5. Desk Pointer (`lorewise/desk.md`)
 
-Maintains client roster, next review dates, and inbox queues:
+Maintains client roster, spend allocation, channel assignments, and inbox queues:
 
 ```markdown
-# Lorewise Desk
+# Lorewise Desk — Active Client Portfolio
 
-| Client | Slug | Status | Review Day | Last Data | Due Bets | Inbox Files |
+| Client | Slug | Monthly Spend | Primary Channel | Secondary Channel | Due Bets | Inbox Files |
 |---|---|---|---|---|---|---|
-| Demo Shop | demo-shop | active | Monday | 2026-10-05 | 0 | 0 |
+| Demo Shop | demo-shop | $24,000 | Meta | Google | 0 | 0 |
 ```
 
 ---

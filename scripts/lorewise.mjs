@@ -224,9 +224,26 @@ async function main() {
         process.exit(0);
       }
 
+      // Check for ledger.json directly in target path (e.g. demo data)
+      const directLedger = path.join(targetPath, 'ledger.json');
+      let ledgerFound = false;
+      if (fs.existsSync(directLedger)) {
+        const ledger = JSON.parse(fs.readFileSync(directLedger, 'utf8'));
+        console.log(`Ledger facts confirmed: ${ledger.facts.length} fact(s) [rX]`);
+        console.log(`Missing data gaps recorded: ${ledger.gaps.length}`);
+        const coverage = ledger.facts.length >= 6 ? '>=60% (Sufficient)' : '<60% (Insufficient)';
+        console.log(`Observational coverage status: ${coverage}`);
+        ledgerFound = true;
+      }
+
+      // Also check data/<date>/ledger.json subdirectories
       const dataDir = path.join(targetPath, 'data');
-      if (fs.existsSync(dataDir)) {
-        const dates = fs.readdirSync(dataDir).filter(d => !d.startsWith('.'));
+      if (!ledgerFound && fs.existsSync(dataDir)) {
+        const entries = fs.readdirSync(dataDir).filter(d => !d.startsWith('.'));
+        // Filter to only directories (dated folders)
+        const dates = entries.filter(d => {
+          try { return fs.statSync(path.join(dataDir, d)).isDirectory(); } catch { return false; }
+        });
         if (dates.length > 0) {
           const latest = path.join(dataDir, dates[dates.length - 1], 'ledger.json');
           if (fs.existsSync(latest)) {

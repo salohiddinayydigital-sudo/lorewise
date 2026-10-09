@@ -29,7 +29,7 @@ export function initWorkspace(workspaceDir = process.cwd()) {
 
 /**
  * Initializes a new client second brain inside the workspace.
- * Creates profile.md, bets.csv, and subdirectories (data, exports, briefs, reports).
+ * Creates client.md, bets.md, and subdirectories (data, exports, briefs, reports).
  */
 export function initClient(slug, options = {}) {
   const workspaceDir = options.workspaceDir || process.cwd();
@@ -54,43 +54,59 @@ export function initClient(slug, options = {}) {
   const secondaryChannel = options.secondaryChannel || 'Google';
   const dateStr = options.date || new Date().toISOString().slice(0, 10);
 
-  // 1. profile.md
+  // 1. client.md & profile.md (dual creation for format spec & backward compatibility)
+  const clientPath = path.join(clientDir, 'client.md');
   const profilePath = path.join(clientDir, 'profile.md');
+  const profileContent = [
+    '---',
+    `client: "${clientName}"`,
+    `slug: "${slug}"`,
+    `created: "${dateStr}"`,
+    `monthly_budget: ${monthlyBudget}`,
+    `target_roas: ${targetRoas}`,
+    `target_cpa: ${targetCpa}`,
+    `primary_channel: "${primaryChannel}"`,
+    `secondary_channel: "${secondaryChannel}"`,
+    `conversion_lag_days: 3`,
+    '---',
+    '',
+    `# ${clientName} — Media Buying Profile`,
+    '',
+    '## Unit Economics & Guardrails',
+    `- Monthly Budget: $${monthlyBudget.toLocaleString()}`,
+    `- Target ROAS: ${targetRoas}x`,
+    `- Target CPA: $${targetCpa}`,
+    `- Attribution Window: 7-day click / 1-day view (Meta), Data-driven (GA4)`,
+    '',
+    '## Channels & Objectives',
+    `- Primary: ${primaryChannel} Ads`,
+    `- Secondary: ${secondaryChannel} Ads`,
+    '',
+    '## Creative Formats',
+    '- UGC Reels / TikToks (9:16 vertical video)',
+    '- Static benefit-driven carousels',
+    ''
+  ].join('\n');
+
+  if (!fs.existsSync(clientPath)) {
+    fs.writeFileSync(clientPath, profileContent, 'utf8');
+  }
   if (!fs.existsSync(profilePath)) {
-    const profileContent = [
-      '---',
-      `client: "${clientName}"`,
-      `slug: "${slug}"`,
-      `created: "${dateStr}"`,
-      `monthly_budget: ${monthlyBudget}`,
-      `target_roas: ${targetRoas}`,
-      `target_cpa: ${targetCpa}`,
-      `primary_channel: "${primaryChannel}"`,
-      `secondary_channel: "${secondaryChannel}"`,
-      `conversion_lag_days: 3`,
-      '---',
-      '',
-      `# ${clientName} — Media Buying Profile`,
-      '',
-      '## Unit Economics & Guardrails',
-      `- Monthly Budget: $${monthlyBudget.toLocaleString()}`,
-      `- Target ROAS: ${targetRoas}x`,
-      `- Target CPA: $${targetCpa}`,
-      `- Attribution Window: 7-day click / 1-day view (Meta), Data-driven (GA4)`,
-      '',
-      '## Channels & Objectives',
-      `- Primary: ${primaryChannel} Ads`,
-      `- Secondary: ${secondaryChannel} Ads`,
-      '',
-      '## Creative Formats',
-      '- UGC Reels / TikToks (9:16 vertical video)',
-      '- Static benefit-driven carousels',
-      ''
-    ].join('\n');
     fs.writeFileSync(profilePath, profileContent, 'utf8');
   }
 
-  // 2. bets.csv
+  // 2. bets.md & bets.csv
+  const betsMdPath = path.join(clientDir, 'bets.md');
+  if (!fs.existsSync(betsMdPath)) {
+    const betsContent = [
+      '# Bets Registry',
+      '',
+      '<!-- Append new bets below this line -->',
+      ''
+    ].join('\n');
+    fs.writeFileSync(betsMdPath, betsContent, 'utf8');
+  }
+
   const betsPath = path.join(clientDir, 'bets.csv');
   if (!fs.existsSync(betsPath)) {
     const betsHeader = 'bet_id,date_placed,channel,hypothesis,metric,target_value,actual_value,status,settled_date\n';
@@ -106,8 +122,10 @@ export function initClient(slug, options = {}) {
 
   return {
     clientDir,
+    clientPath,
     profilePath,
     betsPath,
+    betsMdPath,
     slug,
     clientName
   };

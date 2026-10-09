@@ -150,6 +150,8 @@ function isAdDomainTool(toolName) {
     lower.startsWith('ads_') ||
     lower.startsWith('ad_') ||
     lower.startsWith('google_ads_') ||
+    lower.startsWith('googleads_') ||
+    lower.startsWith('adwords_') ||
     lower.startsWith('ga4_') ||
     lower.startsWith('meta_') ||
     lower.startsWith('facebook_ads_') ||

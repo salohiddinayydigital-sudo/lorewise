@@ -25,7 +25,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write|Edit|write_file|edit_file|create_file",
         "hooks": [
           {
             "type": "command",

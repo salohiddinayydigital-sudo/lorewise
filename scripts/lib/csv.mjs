@@ -114,8 +114,11 @@ export function profileCsv(filePath) {
     let numericCount = 0;
     const sampleRows = dataRows.slice(0, Math.min(20, dataRows.length));
     for (const r of sampleRows) {
-      const val = (r[colIdx] || '').replace(/[\$,]/g, '');
-      if (val !== '' && !isNaN(Number(val))) {
+      const val = (r[colIdx] || '').replace(/[\$€£₽¥₩,\s]/g, '').replace(/сўм/gi, '');
+      // Handle European decimal comma: if value has comma followed by exactly 2 digits at end
+      const euroDecimal = val.match(/^(\d+),(\d{2})$/);
+      const numStr = euroDecimal ? `${euroDecimal[1]}.${euroDecimal[2]}` : val;
+      if (numStr !== '' && !isNaN(Number(numStr))) {
         numericCount++;
       }
     }
@@ -218,7 +221,13 @@ export function auditCsv(filePath) {
 
     const parseNum = (idx) => {
       if (idx === -1 || !row[idx]) return 0;
-      const clean = row[idx].replace(/[\$,]/g, '').trim();
+      let clean = row[idx].replace(/[\$€£₽¥₩\s]/g, '').replace(/сўм/gi, '').trim();
+      const euroDecimal = clean.match(/^(\d+),(\d{2})$/);
+      if (euroDecimal) {
+        clean = `${euroDecimal[1]}.${euroDecimal[2]}`;
+      } else {
+        clean = clean.replace(/,/g, '');
+      }
       const n = Number(clean);
       return isNaN(n) ? 0 : n;
     };

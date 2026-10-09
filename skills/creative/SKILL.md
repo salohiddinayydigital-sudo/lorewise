@@ -38,7 +38,13 @@ It evaluates visual and textual assets, tracks creative fatigue, and formulates 
    - Rising Cost Per Acquisition (CPA spike $> 25\%$ above baseline)
 4. **Structured Creative & Storyboard Briefing:**
    Produces actionable, hypothesis-driven creative briefs using [brief-format.md](brief-format.md), including 5-scene timeline storyboards directly linking new visual angles to open bets and playbook lessons.
-5. **Visual Inspection Delegation:**
+5. **Video Creative Production & Formats:**
+   Deploys 9 high-converting video ad formats, script templates with `{hook}`, `{proof}`, and `{cta}` variables, and hook vs body fatigue diagnosis via [video-system.md](video-system.md).
+6. **Direct Response Copy Frameworks & Transformations:**
+   Applies direct response copy architectures (PAS, AIDA, BAB, 4P, FAB, PASTOR), neutralizes core objections, and applies weak-to-strong copy upgrades using [copy-frameworks.md](copy-frameworks.md).
+7. **Strict Quality Gates:**
+   Validates creative deliverables against the 50-point Copy Quality Gate and 40-point Strategy Quality Gate in [quality-gates.md](quality-gates.md) before client presentation.
+8. **Visual Inspection Delegation:**
    Delegates image inspection and visual attribute extraction to the `creative-eye` subagent ([agents/creative-eye.md](../../agents/creative-eye.md)).
 
 ---

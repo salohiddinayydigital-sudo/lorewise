@@ -23,6 +23,7 @@ export function stampReport(reportPath, ledgerPath) {
 
   let recomputedCount = 0;
   let statedCount = 0;
+  const unknownIds = [];
 
   for (const id of citedIds) {
     const fact = factsMap.get(id);
@@ -32,6 +33,8 @@ export function stampReport(reportPath, ledgerPath) {
       } else if (fact.kind === 'told') {
         statedCount++;
       }
+    } else {
+      unknownIds.push(id);
     }
   }
 
@@ -49,6 +52,8 @@ export function stampReport(reportPath, ledgerPath) {
     totalFigures,
     recomputedCount,
     statedCount,
+    unknownCount: unknownIds.length,
+    unknownIds,
     stampText
   };
 }

@@ -6,7 +6,7 @@ import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-import { profileCsv } from '../scripts/lib/csv.mjs';
+import { profileCsv, auditCsv } from '../scripts/lib/csv.mjs';
 import { buildLedger, isNonAdditiveColumn } from '../scripts/lib/ledger.mjs';
 import { stampReport } from '../scripts/lib/stamp.mjs';
 import { findUnverifiedMetrics } from '../scripts/lib/verify.mjs';
@@ -33,6 +33,27 @@ describe('Receipts Engine — CSV Profiler', () => {
     const profile = profileCsv(totalsTrapPath);
 
     assert.strictEqual(profile.hasTotalsRow, true, 'Must detect summary Totals row');
+  });
+
+  it('handles international currency symbols and European comma formatting in auditCsv and profileCsv', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'euro-test-'));
+    try {
+      const euroCsvPath = path.join(tmpDir, 'euro.csv');
+      const csvContent = [
+        'Campaign name,Amount spent,Link clicks,Purchases',
+        'Euro Campaign 1,"1250,50 €",450,25',
+        'Euro Campaign 2,"2300,75 €",800,40'
+      ].join('\n');
+      fs.writeFileSync(euroCsvPath, csvContent, 'utf8');
+
+      const audit = auditCsv(euroCsvPath);
+      assert.strictEqual(audit.platform, 'meta');
+      assert.strictEqual(audit.metrics.totalConversions, 65);
+      assert.ok(audit.metrics.totalSpend > 3500);
+      assert.ok(audit.metrics.blendedCpa > 0);
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
   });
 });
 
@@ -116,6 +137,25 @@ describe('Receipts Engine — Stamp Verification', () => {
 
       const stampedContent = fs.readFileSync(reportPath, 'utf8');
       assert.ok(stampedContent.includes('*Receipts: 3 figures — 3 recomputed, 0 client-stated, 0 estimates.*'));
+    } finally {
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+    }
+  });
+
+  it('tracks unknown receipt IDs cited in report that are missing from ledger', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'lorewise-stamp-unknown-'));
+    try {
+      const reportPath = path.join(tmpDir, 'test-report-unknown.md');
+      const ledgerPath = path.join(DEMO_DIR, 'ledger.json');
+
+      const initialReport = `# Weekly Review\n\nWe spent $5,768.40 [r3] and mystery metric was 99 [r999].\n`;
+      fs.writeFileSync(reportPath, initialReport, 'utf8');
+
+      const stampRes = stampReport(reportPath, ledgerPath);
+      assert.strictEqual(stampRes.totalFigures, 2);
+      assert.strictEqual(stampRes.recomputedCount, 1);
+      assert.strictEqual(stampRes.unknownCount, 1);
+      assert.deepStrictEqual(stampRes.unknownIds, ['r999']);
     } finally {
       fs.rmSync(tmpDir, { recursive: true, force: true });
     }

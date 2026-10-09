@@ -113,3 +113,26 @@ Official reference rules and platform attribution mechanics for Meta Ads (Facebo
 - **Static & Carousel Formats:**
   * 1:1 (Feed) and 4:5 (Mobile Feed) high-contrast visuals paired with concise benefit copy ($\le 125$ chars).
 
+
+## Campaign Structure Reference
+
+- **ABO (Ad Set Budget Optimization)**: Manual control per ad set. Best for testing because it forces spend across all variations evenly.
+- **CBO (Campaign Budget Optimization)**: Algorithm dynamically distributes budget to the top-performing ad sets. Best for scaling winners.
+- **1-1-1 Structure**: 1 Campaign, 1 Ad Set, 1 Ad. Provides maximum signal clarity and isolates variables perfectly.
+- **1-5-5 Structure**: 1 Campaign, 5 Ad Sets, 5 Ads each. Provides maximum test breadth to find winning combinations quickly.
+- **ASC (Advantage Shopping Campaigns)**: Minimal targeting inputs, full algorithmic control. Requires broad appeal and strong pixel history.
+- **Testing + Scaling Split**: Maintain a separate campaign strictly for testing (using ABO to force spend) and a separate campaign for scaling proven winners (using CBO to maximize efficiency).
+
+## Learning Phase Rules
+
+- **Volume Requirement**: ~50 optimization events per ad set per week are required for stable algorithm delivery.
+- **Reset Triggers**: Major edits (budget changes >20%, altering audience, changing bid strategy, swapping creative) immediately reset the learning phase.
+- **Consolidation**: Maximum 3-5 active ad sets per campaign to prevent signal fragmentation and budget dilution.
+- **Patience**: Do not evaluate performance or pause ads during the learning phase (the first 50 events). Early data is volatile and non-predictive.
+
+## Andromeda Algorithm Signals
+
+- **Efficiency Signal**: ROAS/CPA performance tells the algorithm that the ad successfully converts the people it targets.
+- **Scalability Signal**: Broad audience response (high engagement and click-through from diverse segments) tells the algorithm the ad can reach more people without exhausting the pool.
+- **Scaling Walls**: These occur when efficiency is high but the scalability signal fails. The ad is profitable but only appeals to a tiny, exhausted pocket of users.
+- **Creative IS Targeting**: In the Andromeda era, demographic targeting is obsolete. The creative dictates the audience. Avatar + Angle = Concept.
