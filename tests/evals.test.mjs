@@ -110,41 +110,15 @@ describe('Eval Suite Specification & Grader Validation', () => {
 });
 
 describe('Baseline Behavior on Empty Plugin (P1 Acceptance Requirement)', () => {
-  it('confirms empty plugin lacks marketing skills and fails capability cases', () => {
-    // In P1, Lorewise has 0 skills, 0 agents, 0 hooks installed.
-    // Therefore, capability tasks (e.g. running lorewise:start, lorewise:week, generating ledger receipts)
-    // cannot succeed on the unequipped baseline.
-    const pluginJson = JSON.parse(
-      fs.readFileSync(path.join(REPO_ROOT, '.claude-plugin', 'plugin.json'), 'utf8')
-    );
-
-    // Verify baseline currently exposes 0 skills
+  it('confirms presence of P2 zero-runtime core skills (start, week, remember)', () => {
     const skillsDir = path.join(REPO_ROOT, 'skills');
     const skillList = fs.readdirSync(skillsDir).filter(f => {
       return fs.existsSync(path.join(skillsDir, f, 'SKILL.md'));
     });
 
-    assert.strictEqual(skillList.length, 0, 'Empty plugin in P1 must have 0 implemented skills');
-
-    // A baseline without Lorewise skills fails at least 6 out of 12 capability cases:
-    // 01-demo-first-report: no start/week skill to generate stamped report
-    // 02-no-revenue-no-roas: no ledger to profile columns and refuse ROAS
-    // 03-totals-row-trap: general LLM naively sums all rows including Totals
-    // 04-non-additive: general LLM naively sums reach across rows
-    // 07-pause-the-losers: no spend guard or change packet generator
-    // 11-settle-due-bet: no bet settlement skill
-    const baselineFailingCases = [
-      '01-demo-first-report',
-      '02-no-revenue-no-roas',
-      '03-totals-row-trap',
-      '04-non-additive',
-      '07-pause-the-losers',
-      '11-settle-due-bet'
-    ];
-
-    assert.ok(
-      baselineFailingCases.length >= 6,
-      'Baseline must fail at least half (>= 6) of the eval cases'
-    );
+    const expectedP2Skills = ['start', 'week', 'remember'];
+    for (const sk of expectedP2Skills) {
+      assert.ok(skillList.includes(sk), `P2 core skill missing: ${sk}`);
+    }
   });
 });
