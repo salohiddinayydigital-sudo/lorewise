@@ -29,7 +29,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Run unit and structure tests
-        run: node --test tests/*.test.mjs
+        run: node --test
+
 
       - name: Validate plugin manifest (--strict)
         run: npx -y @anthropic-ai/claude-code plugin validate --strict .
