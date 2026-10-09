@@ -112,3 +112,81 @@ export function initClient(slug, options = {}) {
     clientName
   };
 }
+
+/**
+ * Initializes the full synthetic Demo Shop inside the workspace.
+ * Preloads client.md, bets.md, bets.csv, ledger.json, multi-channel data, and creatives.
+ */
+export function initDemo(options = {}) {
+  const workspaceDir = options.workspaceDir || process.cwd();
+  const repoRoot = options.repoRoot || path.resolve(import.meta.dirname, '../..');
+  const demoSourceDir = path.join(repoRoot, 'skills', 'start', 'demo');
+
+  const { deskPath, clientsDir } = initWorkspace(workspaceDir);
+  const demoClientDir = path.join(clientsDir, 'demo-shop');
+  const demoDataDir = path.join(demoClientDir, 'data');
+  const demoCreativeDir = path.join(demoClientDir, 'creative');
+  const demoExportsDir = path.join(demoClientDir, 'exports');
+  const demoBriefsDir = path.join(demoClientDir, 'briefs');
+  const demoReportsDir = path.join(demoClientDir, 'reports');
+
+  fs.mkdirSync(demoDataDir, { recursive: true });
+  fs.mkdirSync(demoCreativeDir, { recursive: true });
+  fs.mkdirSync(demoExportsDir, { recursive: true });
+  fs.mkdirSync(demoBriefsDir, { recursive: true });
+  fs.mkdirSync(demoReportsDir, { recursive: true });
+
+  if (fs.existsSync(demoSourceDir)) {
+    // client.md & profile.md
+    if (fs.existsSync(path.join(demoSourceDir, 'client.md'))) {
+      fs.copyFileSync(path.join(demoSourceDir, 'client.md'), path.join(demoClientDir, 'client.md'));
+      fs.copyFileSync(path.join(demoSourceDir, 'client.md'), path.join(demoClientDir, 'profile.md'));
+    }
+    if (fs.existsSync(path.join(demoSourceDir, 'bets.md'))) {
+      fs.copyFileSync(path.join(demoSourceDir, 'bets.md'), path.join(demoClientDir, 'bets.md'));
+    }
+    if (fs.existsSync(path.join(demoSourceDir, 'ledger.json'))) {
+      fs.copyFileSync(path.join(demoSourceDir, 'ledger.json'), path.join(demoClientDir, 'ledger.json'));
+    }
+
+    // Copy demo CSVs
+    const sourceDataDir = path.join(demoSourceDir, 'data');
+    if (fs.existsSync(sourceDataDir)) {
+      for (const f of fs.readdirSync(sourceDataDir)) {
+        fs.copyFileSync(path.join(sourceDataDir, f), path.join(demoDataDir, f));
+        fs.copyFileSync(path.join(sourceDataDir, f), path.join(demoExportsDir, f));
+      }
+    }
+
+    // Copy synthetic creatives
+    const sourceCreativeDir = path.join(demoSourceDir, 'creative');
+    if (fs.existsSync(sourceCreativeDir)) {
+      for (const f of fs.readdirSync(sourceCreativeDir)) {
+        fs.copyFileSync(path.join(sourceCreativeDir, f), path.join(demoCreativeDir, f));
+      }
+    }
+  }
+
+  // Create demo bets.csv
+  const betsCsvPath = path.join(demoClientDir, 'bets.csv');
+  const betsContent = [
+    'bet_id,date_placed,channel,hypothesis,metric,target_value,actual_value,status,settled_date',
+    'B-014,2026-09-28,Meta,Pause fatigued Broad 25-44 and move $60/day to Lookalike,CPA,<=$36,$34.10,won,2026-10-05',
+    'B-015,2026-10-05,Google,Scale PMax Search asset group with UGC hook,ROAS,>=2.80,,open,'
+  ].join('\n') + '\n';
+  fs.writeFileSync(betsCsvPath, betsContent, 'utf8');
+
+  // Update desk.md
+  const deskContent = fs.readFileSync(deskPath, 'utf8');
+  if (!deskContent.includes('| demo-shop |')) {
+    const row = '| Demo Shop | demo-shop | $24,000 | Meta | Google | 1 | 4 |\n';
+    fs.appendFileSync(deskPath, row, 'utf8');
+  }
+
+  return {
+    slug: 'demo-shop',
+    clientName: 'Demo Shop',
+    clientDir: demoClientDir,
+    deskPath
+  };
+}

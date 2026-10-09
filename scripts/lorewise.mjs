@@ -14,7 +14,7 @@ import { buildLedger } from './lib/ledger.mjs';
 import { stampReport } from './lib/stamp.mjs';
 import { findUnverifiedMetrics } from './lib/verify.mjs';
 import { auditPlaybookHealth, checkProtectionState } from './lib/health.mjs';
-import { initWorkspace, initClient } from './lib/init.mjs';
+import { initWorkspace, initClient, initDemo } from './lib/init.mjs';
 import { generateDashboard, formatDashboardAscii } from './lib/dashboard.mjs';
 
 function readStdin() {
@@ -51,8 +51,20 @@ async function main() {
 
     if (command === 'init') {
       const slug = args[1];
+      if (slug === '--demo' || args.includes('--demo')) {
+        const repoRoot = path.resolve(import.meta.dirname, '..');
+        const res = initDemo({ workspaceDir: process.cwd(), repoRoot });
+        console.log(`[Lorewise Demo Initialized] "${res.clientName}" (${res.slug}) ready:`);
+        console.log(`  - Profile: lorewise/clients/${res.slug}/profile.md`);
+        console.log(`  - Multi-Channel Exports: 4 CSV files in lorewise/clients/${res.slug}/data/`);
+        console.log(`  - Synthetic Creatives: 4 PNG assets in lorewise/clients/${res.slug}/creative/`);
+        console.log(`  - Bets Ledger: lorewise/clients/${res.slug}/bets.csv (B-014 won, B-015 open)`);
+        console.log(`Updated desk.md portfolio. Run 'lorewise dashboard' to inspect!`);
+        process.exit(0);
+      }
+
       if (!slug || slug === '--help') {
-        console.log('Usage: lorewise init <client-slug> [--name "Brand Name"] [--budget 5000] [--roas 2.5] [--cpa 35] [--primary Meta] [--secondary Google]');
+        console.log('Usage: lorewise init <client-slug|--demo> [--name "Brand Name"] [--budget 5000] [--roas 2.5] [--cpa 35] [--primary Meta] [--secondary Google]');
         process.exit(0);
       }
 

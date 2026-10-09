@@ -143,7 +143,12 @@ describe('CLI Extensions & Platform Audit', () => {
       encoding: 'utf8'
     });
     assert.ok(diagOut.includes('Summary Totals row detected'));
-    assert.ok(diagOut.includes('[Clean Recomputed Actuals]'));
+    // 4. Run init --demo
+    const demoOut = execFileSync(process.execPath, [cliPath, 'init', '--demo'], {
+      cwd: tmpDir,
+      encoding: 'utf8'
+    });
+    assert.ok(demoOut.includes('[Lorewise Demo Initialized] "Demo Shop" (demo-shop) ready'));
 
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });
