@@ -1,0 +1,206 @@
+{
+  "period": {
+    "from": "2026-09-28",
+    "to": "2026-10-04"
+  },
+  "files": [
+    {
+      "id": "f1",
+      "name": "meta.csv",
+      "platform": "meta",
+      "rows": 6,
+      "sha256": "341f509e49717f873ff37fdc6c257a1096c4dbffcc62824b3d674aabec63cff7"
+    },
+    {
+      "id": "f2",
+      "name": "google-ads.csv",
+      "platform": "google",
+      "rows": 3,
+      "sha256": "912c9501e9fd2eff31965b0eb32f95b231b5f9ca8a00c3333ddb75729b83b7b5"
+    },
+    {
+      "id": "f3",
+      "name": "ga4.csv",
+      "platform": "ga4",
+      "rows": 4,
+      "sha256": "ed4a2bdc2c6580eb506ef5abf4a17dc3d9e762b6a43bcffb6024d959942dfb82"
+    },
+    {
+      "id": "f4",
+      "name": "store-orders.csv",
+      "platform": "store",
+      "rows": 164,
+      "sha256": "11c0a42d9d3e4b86ec0b8ed7ce8b1d6f092b1e8e88834fa631fc49c0192bad89"
+    }
+  ],
+  "facts": [
+    {
+      "id": "r1",
+      "label": "Meta impressions",
+      "value": 184520,
+      "unit": "impressions",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Impressions",
+      "rows": "2-7",
+      "agg": "sum"
+    },
+    {
+      "id": "r2",
+      "label": "Meta link clicks",
+      "value": 3060,
+      "unit": "clicks",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Link clicks",
+      "rows": "2-7",
+      "agg": "sum"
+    },
+    {
+      "id": "r3",
+      "label": "Meta spend",
+      "value": 5768.4,
+      "unit": "USD",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Amount spent (USD)",
+      "rows": "2-7",
+      "agg": "sum"
+    },
+    {
+      "id": "r4",
+      "label": "Google Ads spend",
+      "value": 2450,
+      "unit": "USD",
+      "kind": "quoted",
+      "file": "f2",
+      "column": "Cost",
+      "rows": "2-4",
+      "agg": "sum"
+    },
+    {
+      "id": "r5",
+      "label": "Total ad spend",
+      "value": 8218.4,
+      "unit": "USD",
+      "kind": "computed",
+      "formula": "r3+r4"
+    },
+    {
+      "id": "r6",
+      "label": "Meta purchases",
+      "value": 212,
+      "unit": "purchases",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Purchases",
+      "rows": "2-7",
+      "agg": "sum"
+    },
+    {
+      "id": "r7",
+      "label": "Meta CPA",
+      "value": 27.21,
+      "unit": "USD",
+      "kind": "computed",
+      "formula": "r3/r6"
+    },
+    {
+      "id": "r8",
+      "label": "Google Ads conversions",
+      "value": 68,
+      "unit": "conversions",
+      "kind": "quoted",
+      "file": "f2",
+      "column": "Conversions",
+      "rows": "2-4",
+      "agg": "sum"
+    },
+    {
+      "id": "r9",
+      "label": "Broad ad set frequency",
+      "value": 4.8,
+      "unit": "frequency",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Frequency",
+      "rows": "4",
+      "agg": "exact"
+    },
+    {
+      "id": "r10",
+      "label": "Broad ad set CTR 3w decline",
+      "value": -0.38,
+      "unit": "pct",
+      "kind": "computed",
+      "formula": "trend_calc"
+    },
+    {
+      "id": "r11",
+      "label": "GA4 recorded purchases",
+      "value": 182,
+      "unit": "purchases",
+      "kind": "quoted",
+      "file": "f3",
+      "column": "Key events",
+      "rows": "2-5",
+      "agg": "sum"
+    },
+    {
+      "id": "r12",
+      "label": "Store verified orders",
+      "value": 164,
+      "unit": "orders",
+      "kind": "quoted",
+      "file": "f4",
+      "column": "Name",
+      "rows": "2-165",
+      "agg": "count"
+    },
+    {
+      "id": "r13",
+      "label": "Meta vs Store purchase gap",
+      "value": 48,
+      "unit": "purchases",
+      "kind": "computed",
+      "formula": "r6-r12"
+    },
+    {
+      "id": "r14",
+      "label": "Store net revenue",
+      "value": 10578,
+      "unit": "USD",
+      "kind": "quoted",
+      "file": "f4",
+      "column": "Total",
+      "rows": "2-165",
+      "agg": "sum"
+    },
+    {
+      "id": "r15",
+      "label": "Lookalike ad set CPA",
+      "value": 34.1,
+      "unit": "USD",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Cost per Purchase (USD)",
+      "rows": "2",
+      "agg": "exact"
+    },
+    {
+      "id": "r16",
+      "label": "Lookalike ad set purchases",
+      "value": 41,
+      "unit": "purchases",
+      "kind": "quoted",
+      "file": "f1",
+      "column": "Purchases",
+      "rows": "2-3",
+      "agg": "sum"
+    }
+  ],
+  "gaps": [
+    "LTV: not in any file provided",
+    "Store vs Meta attribution gap: 48 orders (22.6%)"
+  ]
+}
