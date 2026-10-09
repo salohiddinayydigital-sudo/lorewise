@@ -78,3 +78,38 @@ Official reference rules and platform attribution mechanics for Meta Ads (Facebo
 - **Claim:** Significant ad edits including budget modifications exceeding 20 percent or creative swaps reset ad set learning phase progress.
 - **Source:** [Meta Business Help Center](https://www.facebook.com/business/help/316478108955072)
 - **Checked:** 2026-09-15 | **Expires:** 2027-09-15
+
+---
+
+## Strategic Architecture & Best Practices
+
+### 1. Budget Architecture: CBO vs ABO
+- **Advantage Campaign Budget (CBO):**
+  * Recommended when scaling across 3 or more proven ad sets.
+  * Allows Meta's auction liquidity algorithm to dynamically route spend to the lowest-cost conversion opportunities in real time.
+  * Use minimum/maximum ad set spend limits sparingly; aggressive limits defeat algorithmic liquidity.
+- **Ad Set Budget (ABO):**
+  * Recommended for controlled creative testing or new audience isolation where each variant requires guaranteed minimum spend (e.g. testing 3 hook variations).
+
+### 2. Bid Strategies & Auction Dynamics
+- **Highest Volume (Default):**
+  * Maximizes total conversions from the allocated budget. Ideal for cold prospecting and rapid discovery.
+- **Cost Cap:**
+  * Enforces an average CPA target across auctions. Protects profitability during volatile CPM spikes, but may underpace if the cap is set below market clearing price.
+- **Minimum ROAS:**
+  * Prioritizes order value over order volume; optimal for ecommerce catalogs with wide Average Order Value (AOV) ranges.
+
+### 3. Audience Architecture & Exclusion Hygiene
+- **Advantage+ Audience:**
+  * Uses AI targeting starting from suggested audiences, expanding dynamically when lower CPA conversions are discovered.
+  * Always enforce mandatory age, country, or location constraints inside **Audience Controls** (which cannot be expanded) rather than Audience Suggestions.
+- **Exclusion Hygiene:**
+  * Always exclude 180-day customer purchaser lists (via CAPI/pixel Custom Audiences) from cold prospecting campaigns to prevent wasting budget on existing buyers.
+
+### 4. Creative Formats & Video Retention
+- **Video Retention Standards (Reels & Stories):**
+  * Vertical 9:16 aspect ratio (1080x1920 px) with captions in the safe zone.
+  * Target 3-second Hook Rate $\ge 30\%$ and 15-second ThruPlay Hold Rate $\ge 30\%$.
+- **Static & Carousel Formats:**
+  * 1:1 (Feed) and 4:5 (Mobile Feed) high-contrast visuals paired with concise benefit copy ($\le 125$ chars).
+

@@ -203,3 +203,30 @@ $$\text{Coverage} = \frac{\text{Count}(\text{pass}) + \text{Count}(\text{fail})}
   - `fail`: Audit judging recent 1-3 days during active lag without flagging provisional status
   - `unknown`: Lag window not declared
   - `not_applicable`: Lag-free real-time backend
+
+---
+
+### Domain F: Platform-Specific Extensions (Telegram Ads, Meta & Google Ads)
+
+#### Telegram Ads Audit Protocol
+- **Cost Per Join (CPJ) / Cost Per Subscriber:**
+  * Evaluate channel join efficiency: $\text{CPJ} = \frac{\text{Telegram Ad Spend}}{\text{Verified Channel Joins}}$. Compare to client target CPS.
+- **Bot Funnel Conversion Cost:**
+  * Evaluate automated bot starts: $\text{CPS} = \frac{\text{Spend}}{\text{Bot /start Activations}}$.
+- **Telegram Channel Targeting Saturation:**
+  * Identify public channels where CPM has spiked $> 30\%$ without commensurate CTR lift; flag for audience exhaustion or exclusion.
+- **External Web Traffic UTM Integrity:**
+  * Mandate `utm_source=telegram` and `utm_medium=ads` on all sponsored links leading to Shopify, WooCommerce, or lead funnels.
+
+#### Meta Ads Manager Deep-Dive
+- **Budget Architecture (CBO vs ABO):**
+  * Confirm campaigns with $\ge 3$ proven ad sets utilize Advantage Campaign Budget (CBO) to let algorithmic auction liquidity allocate spend efficiently.
+- **Bid Strategy Alignment:**
+  * Validate that scaling campaigns use Cost Cap or Minimum ROAS when strict marginal CPA discipline is required, versus Highest Volume for cold audience discovery.
+
+#### Google Ads Deep-Dive
+- **Search Terms & Negative Keyword Hygiene:**
+  * Audit ratio of matching search query spend to total broad match spend; flag unmonitored generic search terms draining $> 15\%$ budget.
+- **Performance Max Asset Group Saturation:**
+  * Audit asset group ratings (Best, Good, Low); mandate replacing "Low" rated visual and headline assets every 14–21 days.
+

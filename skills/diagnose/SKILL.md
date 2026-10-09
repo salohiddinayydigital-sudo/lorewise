@@ -46,6 +46,7 @@ Instead of vague letter grades or arbitrary "account health scores", `diagnose` 
    - [blended.md](blended.md)
    - [tracking.md](tracking.md)
    - [targeting.md](targeting.md)
+   - [telegram-ads.md](telegram-ads.md)
 
 ---
 
@@ -63,4 +64,5 @@ When the conductor or operator invokes `/lorewise:diagnose <slug>`:
    $$\text{Coverage} = \frac{\text{pass} + \text{fail}}{\text{total applicable checks}}$$
    - If coverage $< 60\%$, decline overall health judgment and list missing data files.
 4. **Output Findings:**
-   Render findings grouped by domain (Blended Economics, Meta Ads, Google Ads, GA4 Analytics, Tracking Hygiene) with receipt citations `[rX]`.
+   Render findings grouped by domain (Blended Economics, Meta Ads Manager, Google Ads, Telegram Ads, GA4 Analytics, Tracking Hygiene) with receipt citations `[rX]`.
+

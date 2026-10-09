@@ -154,6 +154,8 @@ function isAdDomainTool(toolName) {
     lower.startsWith('meta_') ||
     lower.startsWith('facebook_ads_') ||
     lower.startsWith('tiktok_ads_') ||
+    lower.startsWith('telegram_ads_') ||
+    lower.startsWith('tg_ads_') ||
     lower.includes('_ads_') ||
     lower.includes('_adwords_')
   );

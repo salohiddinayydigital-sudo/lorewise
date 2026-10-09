@@ -102,6 +102,13 @@ describe('Spend Guard — Unit & Table Verification', () => {
 
     const customRead = evaluateTool('meta_ads_special_custom_report');
     assert.strictEqual(customRead.allow, true, 'Token "report" must trigger allow');
+
+    // Telegram Ads tools verification
+    const tgWrite = evaluateTool('telegram_ads_create_campaign');
+    assert.strictEqual(tgWrite.allow, false, 'Telegram Ads mutating tool must be blocked');
+
+    const tgRead = evaluateTool('telegram_ads_get_stats');
+    assert.strictEqual(tgRead.allow, true, 'Telegram Ads read tool must be allowed');
   });
 
   it('honors spend_guard=off configuration override', () => {

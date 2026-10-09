@@ -2,7 +2,7 @@
 
 > **Lorewise remembers every client, grades its own advice against next week's numbers, and shows you the row behind every figure.**
 
-Lorewise is an open, client-aware Claude Code plugin and agent skills framework for performance marketers and media buyers managing paid campaigns across Meta Ads, Google Ads, GA4, and ecommerce stores.
+Lorewise is an open, client-aware Claude Code plugin and agent skills framework for performance marketers and media buyers managing paid campaigns across Meta Ads Manager, Google Ads, Telegram Ads, GA4, and ecommerce stores.
 
 ---
 
@@ -54,7 +54,7 @@ Select **Demo Shop (synthetic)** to load an 8-week multi-channel audit package. 
    ( 2. Compile Receipts )   --> ledger.json with [rX] fact citations
             |
             v
-   ( 3. Reconcile Sources )  --> Meta vs Google vs GA4 vs Store Backend
+   ( 3. Reconcile Sources )  --> Meta vs Google vs Telegram vs GA4 vs Store Backend
             |
             v
    ( 4. Diagnostic Audit )   --> 20 checks across 4 states (pass/fail/unknown/na)

@@ -20,8 +20,9 @@ Your role is to perform deterministic performance audits on client accounts with
    - Read `lorewise/playbook/lessons/` for applicable historical patterns.
 
 2. **Evaluate the 20 Diagnostic Checks & Domain References:**
-   - Reference `skills/diagnose/method.md` and domain platform facts in `skills/diagnose/targeting.md`.
-   - Audit targeting hygiene: auction overlap between active ad sets, purchaser exclusions on prospecting budgets, and Advantage+ audience controls.
+   - Reference `skills/diagnose/method.md` alongside platform standards in `meta.md`, `google-ads.md`, `telegram-ads.md`, and `targeting.md`.
+   - Audit targeting hygiene: auction overlap between active ad sets, purchaser exclusions on prospecting budgets, Advantage+ audience controls, and Telegram channel/topic targeting saturation.
+
    - For every check (CHK-01 through CHK-20), classify the state strictly as one of:
      * `pass`: Condition meets benchmark or safety limit.
      * `fail`: Condition breaches threshold (e.g. frequency fatigue, attribution gap, pacing breach, auction overlap).

@@ -22,6 +22,8 @@ Every weekly audit report is written to:
 - Platform spend and conversion movement vs prior week.
 - Cross-channel reconciliation:
   * Meta Ads reported purchases [rX]
+  * Google Ads reported conversions [rW]
+  * Telegram Ads reported joins / bot starts / external clicks [rT]
   * GA4 attributed key events [rY]
   * Store verified orders [rZ]
   * Attribution discrepancy breakdown (without averaging).

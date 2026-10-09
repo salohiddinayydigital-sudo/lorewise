@@ -16,8 +16,11 @@ Lorewise ingests performance data from standard platform CSV exports, scheduled 
    - Primary headers: `Session source / medium`, `Sessions`, `Engaged sessions`, `Key events`, `Total revenue`
 4. **Ecommerce Store Orders (Shopify, WooCommerce, Custom):**
    - Primary headers: `Name`, `Created at`, `Financial Status`, `Fulfillment Status`, `Total`, `Discount Amount`, `Lineitem quantity`, `Referring Site`
-5. **Generic CSV:**
+5. **Telegram Ads Export:**
+   - Primary headers: `Ad Title`, `Target Channel / Topic`, `CPM`, `Spent`, `Impressions`, `Clicks`, `CTR`, `Joins`, `Bot Starts`, `Cost per Join`
+6. **Generic CSV:**
    - Any CSV file containing an entity name, a spend column, and a conversion or lead column.
+
 
 ---
 

@@ -73,9 +73,9 @@ function calculateCoverage(checks) {
 }
 
 describe('Diagnose & Creative — Platform Knowledge Base Lint', () => {
-  const platformFiles = ['meta.md', 'google-ads.md', 'ga4.md', 'blended.md', 'tracking.md', 'targeting.md'];
+  const platformFiles = ['meta.md', 'google-ads.md', 'ga4.md', 'blended.md', 'tracking.md', 'targeting.md', 'telegram-ads.md'];
 
-  it('contains all 6 platform reference files', () => {
+  it('contains all 7 platform reference files', () => {
     for (const file of platformFiles) {
       const fullPath = path.join(DIAGNOSE_DIR, file);
       assert.ok(fs.existsSync(fullPath), `Platform reference ${file} must exist`);
@@ -291,5 +291,19 @@ describe('Diagnose & Creative — Creative Card & Brief Specifications', () => {
     assert.ok(content.includes('TGT-FACT-05'));
     assert.ok(content.includes('Custom audience exclusions'));
   });
+
+  it('validates telegram-ads.md defines verified facts on CPM auction, public channels, and tracking', () => {
+    const telegramPath = path.join(DIAGNOSE_DIR, 'telegram-ads.md');
+    assert.ok(fs.existsSync(telegramPath));
+    const content = fs.readFileSync(telegramPath, 'utf8');
+
+    assert.ok(content.includes('TG-FACT-01'));
+    assert.ok(content.includes('CPM auction'));
+    assert.ok(content.includes('TG-FACT-02'));
+    assert.ok(content.includes('1,000 subscribers'));
+    assert.ok(content.includes('TG-FACT-03'));
+    assert.ok(content.includes('UTM tracking'));
+  });
 });
+
 

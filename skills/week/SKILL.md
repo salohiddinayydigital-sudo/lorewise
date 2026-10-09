@@ -58,10 +58,13 @@ When invoked for a specific client:
 #### 3. Cross-Channel Attribution Reconciliation
 - Compare reported metrics across channels:
   * Meta Ads reported purchases
+  * Google Ads reported conversions
+  * Telegram Ads reported joins / bot starts / clicks
   * GA4 attributed purchases
   * Ecommerce store verified orders
-- State all three figures side-by-side. **Never take a mathematical average** across different attribution models.
+- State all figures side-by-side. **Never take a mathematical average** across different attribution models.
 - Quantify the attribution discrepancy (e.g. *"48 purchases exist only in Meta's reporting"*).
+
 
 #### 4. Settle Due Bets
 - Read `lorewise/clients/<slug>/bets.md`.
