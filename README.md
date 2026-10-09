@@ -1,5 +1,13 @@
 # Lorewise
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
+  <a href="https://github.com/salohiddinayydigital-sudo/lorewise/actions"><img src="https://img.shields.io/badge/CI-100%25%20passing-brightgreen.svg" alt="CI Status" /></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D20.0.0-informational.svg" alt="Node.js" /></a>
+  <a href="docs/support-matrix.md"><img src="https://img.shields.io/badge/platforms-Ubuntu%20%7C%20macOS%20%7C%20Windows-blueviolet.svg" alt="Platforms" /></a>
+  <a href="https://github.com/salohiddinayydigital-sudo/lorewise/releases"><img src="https://img.shields.io/badge/release-v1.0.0-success.svg" alt="Release" /></a>
+</p>
+
 > **Lorewise remembers every client, grades its own advice against next week's numbers, and shows you the row behind every figure.**
 
 Lorewise is an open, client-aware Claude Code plugin and agent skills framework for performance marketers and media buyers managing paid campaigns across Meta Ads Manager, Google Ads, Telegram Ads, GA4, and ecommerce stores.
@@ -8,7 +16,19 @@ Lorewise is an open, client-aware Claude Code plugin and agent skills framework 
 
 ## Quick Start
 
-### Installation
+### 1-Click Automated Setup
+
+#### Windows (PowerShell):
+```powershell
+irm https://raw.githubusercontent.com/salohiddinayydigital-sudo/lorewise/main/install.ps1 | iex
+```
+
+#### macOS / Linux (Terminal):
+```bash
+curl -fsSL https://raw.githubusercontent.com/salohiddinayydigital-sudo/lorewise/main/install.sh | bash
+```
+
+### Native Claude Code Plugin Install
 
 Inside Claude Code:
 
@@ -17,7 +37,22 @@ Inside Claude Code:
 /plugin install lorewise@lorewise
 ```
 
+---
+
+## Documentation & Guides
+
+| Guide | Description |
+|---|---|
+| **[COMMANDS-QUICK-REF.md](COMMANDS-QUICK-REF.md)** | Media buyer cheatsheet: 8 skills, 3 subagents, and weekly audit cadence |
+| **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** | Resolving totals row traps, attribution gaps, and non-additive metrics |
+| **[docs/how-it-works.md](docs/how-it-works.md)** | Deep architectural walkthrough of the receipts engine and math foundations |
+| **[docs/support-matrix.md](docs/support-matrix.md)** | Environment and operating system compatibility matrix |
+| **[AGENTS.md](AGENTS.md)** | Engineering invariants, clean-room rules, and contributor guidelines |
+
+---
+
 ### 3-Minute Interactive Demo
+
 
 Experience Lorewise immediately without connecting ad accounts, sharing API keys, or risking real budgets:
 

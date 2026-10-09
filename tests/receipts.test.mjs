@@ -174,4 +174,12 @@ describe('Receipts Engine — CLI End-to-End', () => {
       fs.rmSync(tmpDir, { recursive: true, force: true });
     }
   });
+
+  it('runs lorewise.mjs diagnose via CLI', () => {
+    const res = spawnSync(process.execPath, [LOREWISE_CLI, 'diagnose', DEMO_DIR], { encoding: 'utf8' });
+    assert.strictEqual(res.status, 0);
+    assert.ok(res.stdout.includes('Lorewise Automated Diagnostic Engine'));
+    assert.ok(res.stdout.includes('Diagnostic audit ready'));
+  });
 });
+
