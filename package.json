@@ -4,8 +4,13 @@
   "description": "The media buyer's second brain: remembers every client, grades its own advice against next week's numbers, and shows the row behind every figure.",
   "type": "module",
   "main": "scripts/lorewise.mjs",
+  "bin": {
+    "lorewise": "./scripts/lorewise.mjs"
+  },
   "scripts": {
     "test": "node --test",
+    "dashboard": "node scripts/lorewise.mjs dashboard",
+    "audit": "node scripts/lorewise.mjs check",
     "validate": "claude plugin validate --strict ."
   },
   "keywords": [

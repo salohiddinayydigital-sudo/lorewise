@@ -3,16 +3,19 @@
 /**
  * Lorewise Core CLI & Hook Processor
  * Provides deterministic ledger calculations, file profiling, report stamping,
- * playbook health inspection, and workspace hooks with zero runtime dependencies.
+ * playbook health inspection, client scaffolding, executive dashboard, and
+ * workspace hooks with zero runtime dependencies.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { profileCsv } from './lib/csv.mjs';
+import { profileCsv, auditCsv } from './lib/csv.mjs';
 import { buildLedger } from './lib/ledger.mjs';
 import { stampReport } from './lib/stamp.mjs';
 import { findUnverifiedMetrics } from './lib/verify.mjs';
 import { auditPlaybookHealth, checkProtectionState } from './lib/health.mjs';
+import { initWorkspace, initClient } from './lib/init.mjs';
+import { generateDashboard, formatDashboardAscii } from './lib/dashboard.mjs';
 
 function readStdin() {
   return new Promise((resolve) => {
@@ -30,7 +33,7 @@ async function main() {
   const command = args[0];
 
   if (!command) {
-    console.error('Usage: lorewise.mjs <profile|ledger|stamp|check|diagnose|hook>');
+    console.error('Usage: lorewise <profile|ledger|stamp|check|diagnose|dashboard|init|hook>');
     process.exit(1);
   }
 
@@ -43,6 +46,54 @@ async function main() {
       }
       const profile = profileCsv(path.resolve(filePath));
       console.log(JSON.stringify(profile, null, 2));
+      process.exit(0);
+    }
+
+    if (command === 'init') {
+      const slug = args[1];
+      if (!slug || slug === '--help') {
+        console.log('Usage: lorewise init <client-slug> [--name "Brand Name"] [--budget 5000] [--roas 2.5] [--cpa 35] [--primary Meta] [--secondary Google]');
+        process.exit(0);
+      }
+
+      let name = null;
+      let budget = 5000;
+      let targetRoas = '2.50';
+      let targetCpa = '35.00';
+      let primaryChannel = 'Meta';
+      let secondaryChannel = 'Google';
+
+      for (let i = 2; i < args.length; i++) {
+        if (args[i] === '--name' && args[i + 1]) name = args[i + 1];
+        if (args[i] === '--budget' && args[i + 1]) budget = Number(args[i + 1]);
+        if (args[i] === '--roas' && args[i + 1]) targetRoas = args[i + 1];
+        if (args[i] === '--cpa' && args[i + 1]) targetCpa = args[i + 1];
+        if (args[i] === '--primary' && args[i + 1]) primaryChannel = args[i + 1];
+        if (args[i] === '--secondary' && args[i + 1]) secondaryChannel = args[i + 1];
+      }
+
+      const res = initClient(slug, {
+        name,
+        budget,
+        targetRoas,
+        targetCpa,
+        primaryChannel,
+        secondaryChannel
+      });
+
+      console.log(`[Lorewise Initialized] Client "${res.clientName}" (${res.slug}) ready:`);
+      console.log(`  - Profile: clients/${res.slug}/profile.md`);
+      console.log(`  - Bets Ledger: clients/${res.slug}/bets.csv`);
+      console.log(`  - Drops folder: clients/${res.slug}/exports/`);
+      console.log(`Updated desk.md portfolio. Next: drop exports and run /lorewise:week!`);
+      process.exit(0);
+    }
+
+    if (command === 'dashboard') {
+      const targetDir = args[1] ? path.resolve(args[1]) : process.cwd();
+      const repoRoot = path.resolve(import.meta.dirname, '..');
+      const data = generateDashboard(targetDir, repoRoot);
+      console.log(formatDashboardAscii(data));
       process.exit(0);
     }
 
@@ -130,6 +181,36 @@ async function main() {
       const targetPath = args[1] ? path.resolve(args[1]) : path.resolve('lorewise', 'clients', 'demo-shop');
       console.log('--- Lorewise Automated Diagnostic Engine ---');
       console.log(`Target: ${targetPath}`);
+
+      // If target is directly a CSV file, run in-depth audit
+      if (fs.existsSync(targetPath) && fs.statSync(targetPath).isFile() && targetPath.endsWith('.csv')) {
+        const audit = auditCsv(targetPath);
+        console.log(`\nDetected Platform: ${audit.platform.toUpperCase()} ADS`);
+        console.log(`Total Rows: ${audit.totalRows} (${audit.dataRowCount} data rows)`);
+        console.log(`Delimiter: "${audit.delimiter === '\t' ? '\\t' : audit.delimiter}"`);
+        console.log(`Totals Row: ${audit.hasTotalsRow ? 'YES (Row excluded from sums)' : 'NONE'}`);
+
+        if (audit.anomalies.length > 0) {
+          console.log(`\n[Audit Traps & Alerts (${audit.anomalies.length})]:`);
+          for (const a of audit.anomalies) {
+            const prefix = a.severity === 'alert' ? '[ALERT]' : '[WARN]';
+            console.log(`  ${prefix} ${a.message}`);
+          }
+        }
+
+        console.log(`\n[Clean Recomputed Actuals]:`);
+        console.log(`  - Total Spend:       $${audit.metrics.totalSpend.toLocaleString(undefined, { minimumFractionDigits: 2 })}`);
+        console.log(`  - Impressions:       ${audit.metrics.totalImpressions.toLocaleString()}`);
+        console.log(`  - Clicks:            ${audit.metrics.totalClicks.toLocaleString()}`);
+        console.log(`  - Conversions:       ${audit.metrics.totalConversions.toLocaleString()}`);
+        if (audit.metrics.blendedCpa !== null) {
+          console.log(`  - Blended CPA:       $${audit.metrics.blendedCpa.toFixed(2)}`);
+        }
+        if (audit.metrics.blendedCtr !== null) {
+          console.log(`  - Blended CTR:       ${audit.metrics.blendedCtr.toFixed(2)}%`);
+        }
+        process.exit(0);
+      }
 
       const dataDir = path.join(targetPath, 'data');
       if (fs.existsSync(dataDir)) {

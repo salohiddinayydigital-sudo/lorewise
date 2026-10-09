@@ -1,25 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { parseCsv } from './csv.mjs';
+import { parseCsv, isNonAdditiveColumn, NON_ADDITIVE_KEYWORDS } from './csv.mjs';
 
-const NON_ADDITIVE_KEYWORDS = [
-  'reach',
-  'frequency',
-  'ctr',
-  'cpc',
-  'cpm',
-  'roas',
-  'rate',
-  'cost per purchase',
-  'cost / conv',
-  'cost_per_'
-];
-
-export function isNonAdditiveColumn(columnName) {
-  const lower = columnName.toLowerCase();
-  return NON_ADDITIVE_KEYWORDS.some(k => lower.includes(k));
-}
+export { isNonAdditiveColumn, NON_ADDITIVE_KEYWORDS };
 
 /**
  * Executes a ledger request file and returns the structured ledger data

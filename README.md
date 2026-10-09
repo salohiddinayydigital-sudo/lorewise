@@ -37,6 +37,21 @@ Inside Claude Code:
 /plugin install lorewise@lorewise
 ```
 
+### Terminal CLI Utilities
+
+Lorewise includes zero-dependency command line tools that run directly in your terminal:
+
+```bash
+# 1. Executive Terminal Dashboard (portfolio spend, bets ledger, protection status)
+node scripts/lorewise.mjs dashboard
+
+# 2. Instant Client Workspace Scaffolding
+node scripts/lorewise.mjs init my-brand --name "My Brand" --budget 10000 --primary Meta --secondary Google
+
+# 3. Deep Export Audit & Trap Scanner (Meta, Google, Telegram)
+node scripts/lorewise.mjs diagnose path/to/export.csv
+```
+
 ---
 
 ## Documentation & Guides

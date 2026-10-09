@@ -74,21 +74,31 @@ FRIDAY (Pacing & Change Packets)
 
 ---
 
-## Command Line Utilities (`scripts/lorewise.mjs`)
+## Command Line Utilities (`lorewise` / `scripts/lorewise.mjs`)
 
-You can also run Lorewise scripts directly from the terminal without launching Claude Code:
+You can run Lorewise commands directly from your terminal or CI environment:
 
 ```bash
-# Profile a CSV export (detect headers, delimiter, and summary totals row)
+# 1. Executive Portfolio Dashboard (terminal ASCII board)
+node scripts/lorewise.mjs dashboard
+# or with global binary: lorewise dashboard
+
+# 2. Instant Client Workspace Scaffolding
+node scripts/lorewise.mjs init client-slug --name "Brand Name" --budget 5000 --primary Meta --secondary Google
+
+# 3. Intelligent Export Audit & Trap Scanner (auto-detects Meta, Google, Telegram)
+node scripts/lorewise.mjs diagnose path/to/export.csv
+
+# 4. Profile a CSV export (detect headers, delimiter, and summary totals row)
 node scripts/lorewise.mjs profile path/to/export.csv
 
-# Run zero-model health inspection of playbook and spend guard
+# 5. Run zero-model health inspection of playbook and spend guard
 node scripts/lorewise.mjs check
 
-# Stamp a written report with exact receipt citations
+# 6. Stamp a written report with exact receipt citations
 node scripts/lorewise.mjs stamp report.md --ledger ledger.json
 
-# Test Spend Guard tool evaluation
+# 7. Test Spend Guard tool evaluation
 echo '{"tool":"ads_create_campaign"}' | node scripts/guard.mjs  # Exits 2 (Blocked)
 echo '{"tool":"ads_insights_performance_trend"}' | node scripts/guard.mjs  # Exits 0 (Allowed)
 ```
