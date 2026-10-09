@@ -25,14 +25,12 @@
       "type": "string",
       "title": "Hooks",
       "description": "Hook enforcement mode: on (brief, guard, verify), guard-only (read-only guard only), or off",
-      "options": ["on", "guard-only", "off"],
       "default": "on"
     },
     "spend_guard": {
       "type": "string",
       "title": "Spend guard",
-      "description": "Block mutating advertising MCP tool calls with a change packet recommendation",
-      "options": ["block", "off"],
+      "description": "Block mutating advertising MCP tool calls with a change packet recommendation (block or off)",
       "default": "block"
     }
   }
