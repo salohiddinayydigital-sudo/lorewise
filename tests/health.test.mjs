@@ -5,6 +5,8 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { auditPlaybookHealth, checkProtectionState, parseNoteFrontmatter } from '../scripts/lib/health.mjs';
 
+import os from 'node:os';
+
 const REPO_ROOT = path.resolve(import.meta.dirname, '..');
 const LOREWISE_CLI = path.join(REPO_ROOT, 'scripts', 'lorewise.mjs');
 const LEARN_DIR = path.join(REPO_ROOT, 'skills', 'learn');
@@ -52,7 +54,7 @@ Body text explaining the finding.
 });
 
 describe('Health & Playbook Hygiene — Three Planted Defects Audit', () => {
-  const tempTestDir = path.join(REPO_ROOT, 'tests', 'fixtures', 'temp-health-test');
+  const tempTestDir = path.join(os.tmpdir(), `lorewise-health-test-${Date.now()}`);
 
   const setupTempPlaybook = () => {
     fs.mkdirSync(tempTestDir, { recursive: true });
@@ -175,7 +177,7 @@ Clean content.
 });
 
 describe('Health & Playbook Hygiene — Hook Brief Contract & Performance', () => {
-  const tempDeskPath = path.join(REPO_ROOT, 'tests', 'fixtures', 'temp-desk.md');
+  const tempDeskPath = path.join(os.tmpdir(), `lorewise-temp-desk-${Date.now()}.md`);
 
   const cleanupDesk = () => {
     if (fs.existsSync(tempDeskPath)) {
