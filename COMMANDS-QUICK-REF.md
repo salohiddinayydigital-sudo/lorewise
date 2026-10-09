@@ -4,7 +4,7 @@ A complete cheatsheet of all Lorewise skills, subagents, hooks, and operating wo
 
 ---
 
-## The 8 Worker Skills
+## The 12 Worker Skills
 
 | Skill | Invocation | Typical Usage | Key Deliverables |
 |---|---|---|---|
@@ -13,15 +13,19 @@ A complete cheatsheet of all Lorewise skills, subagents, hooks, and operating wo
 | **`plan`** | `/lorewise:plan <slug>` | Calculate budget pacing, unit economics, and draft change packets | `changes/YYYY-MM-DD-<slug>.md`, new bets in `bets.md` |
 | **`diagnose`** | `/lorewise:diagnose <slug>` | Run the 20-check deterministic health audit against raw receipts | 20-check audit table with `[rX]` citations, coverage score |
 | **`creative`** | `/lorewise:creative <slug>` | Inspect visual assets, hook rates, hold rates, and fatigue signals | `creative-card.md`, `video-card.md`, 5-scene briefs |
+| **`copy`** | `/lorewise:copy <slug>` | Generate direct-response copy, hook variations, and UGC video scripts | Copy candidates across 6 hook families, platform limits |
+| **`launch`** | `/lorewise:launch <slug>` | Structure 3-phase campaign rollouts (Sandbox -> Validation -> Scale) | Pre-flight gate audit, launch change packets, bets |
+| **`competitor`**| `/lorewise:competitor <slug>`| Extract competitor creative angles and find positioning white space | Angle extraction table, differentiation matrix |
+| **`tracking`** | `/lorewise:tracking <slug>` | Audit conversion tracking parity, pixel/CAPI match, and UTMs | Tracking health scorecard, UTM audit, fix instructions |
 | **`learn`** | `/lorewise:learn [slug]` | Distill raw lessons into dated, sourced playbook notes | `playbook/notes/NOTE-*.md`, `lessons/L-*.md` |
 | **`remember`** | `/lorewise:remember <slug>` | Inspect or update client targets, AOV, margins, or decision journals | `journal.md`, `client.md` target verification |
 | **`check`** | `/lorewise:check` | Zero-model health check of expired claims, unsourced notes, and spend guard | Instant console health diagnosis (<50 ms) |
 
 ---
 
-## The 3 Adversarial Subagents
+## The 8 Specialized Subagents
 
-Lorewise enforces strict separation of concerns via three specialized subagents:
+Lorewise enforces strict separation of concerns via eight specialized subagents:
 
 ### 1. `analyst` (`model: sonnet`, Read-Only)
 - **Role:** Impartial diagnostic auditor.
@@ -37,6 +41,31 @@ Lorewise enforces strict separation of concerns via three specialized subagents:
 - **Role:** Creative asset and video retention specialist.
 - **Tools:** `[Read]`. Disallowed: `[Write, Edit, Bash]`.
 - **Function:** Visually inspects images and video storyboards. Extracts hook type, copy angles, text-to-image ratios, 3s hook rates, 15s hold rates, and isolates hook vs body fatigue.
+
+### 4. `copywriter` (`model: sonnet`, Read-Only)
+- **Role:** Direct-response copywriter and messaging specialist.
+- **Tools:** `[Read, Grep, Glob]`. Disallowed: `[Write, Edit, Bash]`.
+- **Function:** Crafts high-converting ad copy candidates, 6 hook family variations, and UGC script outlines using proven response frameworks (AIDA, PAS, BAB, 4P, Unique Mechanism).
+
+### 5. `tracking-auditor` (`model: sonnet`, Read-Only)
+- **Role:** Conversion tracking, pixel/CAPI, and attribution integrity auditor.
+- **Tools:** `[Read, Grep, Glob]`. Disallowed: `[Write, Edit, Bash]`.
+- **Function:** Audits event taxonomy across the funnel, Meta CAPI vs browser deduplication, Google Ads Enhanced Conversions, and multi-channel UTM parameter hygiene.
+
+### 6. `budget-strategist` (`model: sonnet`, Read-Only)
+- **Role:** Mathematical budget pacing and financial efficiency strategist.
+- **Tools:** `[Read, Grep, Glob]`. Disallowed: `[Write, Edit, Bash]`.
+- **Function:** Audits daily spend pacing, marginal return curves, MER, and enforces the 20% vertical scaling limit to protect machine-learning learning phases.
+
+### 7. `launch-architect` (`model: sonnet`, Read-Only)
+- **Role:** Campaign launch and testing framework architect.
+- **Tools:** `[Read, Grep, Glob]`. Disallowed: `[Write, Edit, Bash]`.
+- **Function:** Structures 3-phase testing ladders (Sandbox -> Validation -> Scale), establishes explicit promote/kill criteria, and audits the 10-point pre-flight readiness gate.
+
+### 8. `compliance-guard` (`model: sonnet`, Read-Only)
+- **Role:** Advertising policy and compliance auditor.
+- **Tools:** `[Read, Grep, Glob]`. Disallowed: `[Write, Edit, Bash]`.
+- **Function:** Screens proposed copy, angles, and landing pages against Meta and Google ad policies, providing compliant, high-converting alternatives to protect accounts from bans.
 
 ---
 

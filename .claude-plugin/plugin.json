@@ -18,7 +18,11 @@
     "google-ads",
     "ga4",
     "memory",
-    "evals"
+    "evals",
+    "copywriting",
+    "attribution",
+    "campaign-launch",
+    "competitor-analysis"
   ],
   "userConfig": {
     "hook_mode": {

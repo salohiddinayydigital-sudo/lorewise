@@ -58,7 +58,7 @@ node scripts/lorewise.mjs diagnose path/to/export.csv
 
 | Guide | Description |
 |---|---|
-| **[COMMANDS-QUICK-REF.md](COMMANDS-QUICK-REF.md)** | Media buyer cheatsheet: 8 skills, 3 subagents, and weekly audit cadence |
+| **[COMMANDS-QUICK-REF.md](COMMANDS-QUICK-REF.md)** | Media buyer cheatsheet: 12 skills, 8 subagents, and weekly audit cadence |
 | **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** | Resolving totals row traps, attribution gaps, and non-additive metrics |
 | **[docs/how-it-works.md](docs/how-it-works.md)** | Deep architectural walkthrough of the receipts engine and math foundations |
 | **[docs/support-matrix.md](docs/support-matrix.md)** | Environment and operating system compatibility matrix |
@@ -128,20 +128,29 @@ Detailed architectural walkthrough: [docs/how-it-works.md](docs/how-it-works.md)
 
 ## Complete Capabilities: Skills & Subagents
 
-### Worker Skills (8 Skills)
+### Worker Skills (12 Skills)
 1. **`/lorewise:start`** — Rapid workspace initialization, client interview, and synthetic demo account generator.
 2. **`/lorewise:week`** — Weekly review cycle, cross-channel reconciliation, and report compiler.
 3. **`/lorewise:plan`** — Budget pacing calculations, margin math, and human-executable change packets.
 4. **`/lorewise:diagnose`** — 20-check deterministic health and attribution audit with coverage gating (<60% coverage rule).
 5. **`/lorewise:creative`** — Ad asset inspection, visual hook cataloging, fatigue detection, and brief generator.
-6. **`/lorewise:learn`** — Raw knowledge distillation into structured, dated playbook notes with mandatory source attribution.
-7. **`/lorewise:remember`** — Client memory formats and append-only decision journals.
-8. **`/lorewise:check`** — Fast zero-model health inspection of brain data rot, expired facts, and spend guard status.
+6. **`/lorewise:copy`** — Direct-response ad copy generation, hook variations, and UGC video script blueprints.
+7. **`/lorewise:launch`** — 3-phase campaign launch staging (Sandbox -> Validation -> Scale) and pre-flight validation gates.
+8. **`/lorewise:competitor`** — Ethical competitor ad intelligence, angle extraction, and positioning white-space analysis.
+9. **`/lorewise:tracking`** — Conversion tracking audit, pixel/CAPI match quality, and multi-channel UTM taxonomy.
+10. **`/lorewise:learn`** — Raw knowledge distillation into structured, dated playbook notes with mandatory source attribution.
+11. **`/lorewise:remember`** — Client memory formats and append-only decision journals.
+12. **`/lorewise:check`** — Fast zero-model health inspection of brain data rot, expired facts, and spend guard status.
 
-### Subagents (3 Adversarial Agents)
+### Subagents (8 Specialized Agents)
 - **`agents/analyst.md`** — Read-only diagnostic analyst evaluating data against the 20-check framework (`model: sonnet`).
 - **`agents/skeptic.md`** — Adversarial auditor testing weekly draft claims against `ledger.json` to catch attribution leaps (`model: inherit`).
-- **`agents/creative-eye.md`** — Visual creative inspection subagent extracting design hierarchy, hooks, and fatigue signals (`model: sonnet`).
+- **`agents/creative-eye.md`** — Visual creative inspection subagent extracting design hierarchy, hooks, and video retention curves (`model: sonnet`).
+- **`agents/copywriter.md`** — Direct-response ad copywriter generating candidate variations across the 6 hook families (`model: sonnet`).
+- **`agents/tracking-auditor.md`** — Conversion tracking, CAPI/pixel parity, and UTM parameter hygiene specialist (`model: sonnet`).
+- **`agents/budget-strategist.md`** — Budget pacing, MER evaluation, and 20% vertical scaling limit analyst (`model: sonnet`).
+- **`agents/launch-architect.md`** — 3-phase campaign rollout architect with promote/kill decision rules (`model: sonnet`).
+- **`agents/compliance-guard.md`** — Advertising policy and compliance screener preventing account rejections (`model: sonnet`).
 
 ---
 

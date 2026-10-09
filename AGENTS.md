@@ -55,3 +55,21 @@ Contributors and agents modifying Lorewise MUST adhere strictly to the following
 - **Language:** Code comments, docs, skill instructions, and agent system prompts are written in clear, concise English.
 - **Manifests:** Keep `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` validated under `claude plugin validate --strict .`.
 - **Testing:** Add deterministic unit tests under `tests/` using Node.js native test runner (`node:test`, `node:assert`).
+
+---
+
+## 5. Subagent Roster & Roles
+
+Lorewise organizes specialist work across 8 focused subagents with strict read-only tool boundaries:
+
+| Subagent | File | Model | Tools | Disallowed | Core Mandate |
+|---|---|---|---|---|---|
+| **`analyst`** | `agents/analyst.md` | `sonnet` | `Read, Grep, Glob` | `Write, Edit, Bash` | 20-check deterministic health audit against receipts |
+| **`creative-eye`** | `agents/creative-eye.md` | `sonnet` | `Read` | `Write, Edit, Bash` | Visual ad asset analysis, 3s hook / 15s hold video curves |
+| **`skeptic`** | `agents/skeptic.md` | `inherit` | `Read, Grep` | `Write, Edit, Bash` | Adversarial cross-examination of weekly report drafts |
+| **`copywriter`** | `agents/copywriter.md` | `sonnet` | `Read, Grep, Glob` | `Write, Edit, Bash` | Direct-response ad copy generation across the 6 hook families |
+| **`tracking-auditor`** | `agents/tracking-auditor.md` | `sonnet` | `Read, Grep, Glob` | `Write, Edit, Bash` | Conversion tracking, CAPI/pixel parity, and UTM taxonomy |
+| **`budget-strategist`** | `agents/budget-strategist.md` | `sonnet` | `Read, Grep, Glob` | `Write, Edit, Bash` | Budget pacing, MER evaluation, and the 20% scaling threshold |
+| **`launch-architect`** | `agents/launch-architect.md` | `sonnet` | `Read, Grep, Glob` | `Write, Edit, Bash` | 3-phase campaign launch staging and pre-flight validation gates |
+| **`compliance-guard`** | `agents/compliance-guard.md` | `sonnet` | `Read, Grep, Glob` | `Write, Edit, Bash` | Screening against Meta & Google ad policies to prevent bans |
+
